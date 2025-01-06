@@ -16,6 +16,7 @@ export interface SubcategoryType {
   subcat_name_bn: string;
   subcat_name_en: string;
   no_of_dua: number;
+  dua_names: DuaNameType[];
 }
 
 export interface DuaType {

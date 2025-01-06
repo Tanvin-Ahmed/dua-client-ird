@@ -21,14 +21,18 @@ const CategoryList: FC<ListPropType> = ({ data }) => {
       <CategoryCard
         data={data}
         onClick={() =>
-          router.push(`/${data.cat_id}/${data.sub_cats[0].subcat_id}`)
+          router.push(`/duas/${data.cat_id}/${data.sub_cats[0].subcat_id}`)
         }
         clicked={data.cat_id === catId}
       />
 
       {catId && catId === data.cat_id ? (
         <>
-          <SubCategoryTimeline catId={catId} subCatId={subCatId!} />
+          <SubCategoryTimeline
+            catId={catId}
+            subCatId={subCatId!}
+            data={data.sub_cats}
+          />
         </>
       ) : null}
     </div>

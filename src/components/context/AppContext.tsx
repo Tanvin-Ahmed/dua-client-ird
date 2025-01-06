@@ -55,7 +55,7 @@ const AppContext = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!isMounted || !firstRender) return;
 
-    router.push(`/${cat ?? 1}/${sub_cat ?? 1}`);
+    router.push(`/duas/${cat ?? 1}/${sub_cat ?? 1}`);
     setFirstRender(false);
   }, [router, cat, sub_cat, isMounted, firstRender]);
 
