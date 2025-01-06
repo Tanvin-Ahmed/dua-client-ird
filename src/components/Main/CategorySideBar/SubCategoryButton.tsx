@@ -31,6 +31,7 @@ const SubCategoryButton: FC<SubCategoryButton> = ({ data }) => {
       onClick={(e) => {
         e.stopPropagation();
         router.push(`/duas/${data.cat_id}/${data.subcat_id}`);
+
         scrollToSection(data.subcat_id);
       }}
     >
