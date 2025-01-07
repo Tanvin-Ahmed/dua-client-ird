@@ -1,9 +1,9 @@
 "use client";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import CategoryCard from "./CategoryCard";
 import SubCategoryTimeline from "./SubCategoryTimeline";
 import { CategoryType } from "@/types";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import useCatId from "@/hooks/useCatId";
 import useSubCatId from "@/hooks/useSubCatId";
 
@@ -12,17 +12,23 @@ interface ListPropType {
 }
 
 const CategoryList: FC<ListPropType> = ({ data }) => {
+  const pathname = usePathname();
   const router = useRouter();
   const catId = useCatId();
   const subCatId = useSubCatId();
+
+  const setQueryStringInUrl = useCallback(
+    (queryString: string) => {
+      router.push(pathname.replace(/\/$/, "") + "?" + queryString);
+    },
+    [router, pathname]
+  );
 
   return (
     <div className="w-full">
       <CategoryCard
         data={data}
-        onClick={() =>
-          router.push(`/duas/${data.cat_id}/${data.sub_cats[0].subcat_id}`)
-        }
+        onClick={() => setQueryStringInUrl(`cat=${data.cat_id}`)}
         clicked={data.cat_id === catId}
       />
 

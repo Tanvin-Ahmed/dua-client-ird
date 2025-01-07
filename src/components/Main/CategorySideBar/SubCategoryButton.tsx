@@ -4,14 +4,15 @@ import { appContext } from "@/components/context/AppContext";
 import useSubCatId from "@/hooks/useSubCatId";
 import { SubcategoryType } from "@/types";
 import { cn } from "@/utils";
-import { useRouter } from "next/navigation";
-import { FC, useContext } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { FC, useCallback, useContext } from "react";
 
 interface SubCategoryButton {
   data: SubcategoryType;
 }
 const SubCategoryButton: FC<SubCategoryButton> = ({ data }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const subCatId = useSubCatId();
 
   const { sectionRefs } = useContext(appContext);
@@ -19,6 +20,13 @@ const SubCategoryButton: FC<SubCategoryButton> = ({ data }) => {
   const scrollToSection = (id: number): void => {
     sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const setQueryStringInUrl = useCallback(
+    (queryString: string) => {
+      router.push(pathname.replace(/\/$/, "") + "?" + queryString);
+    },
+    [router, pathname]
+  );
 
   return (
     <p
@@ -30,7 +38,7 @@ const SubCategoryButton: FC<SubCategoryButton> = ({ data }) => {
       )}
       onClick={(e) => {
         e.stopPropagation();
-        router.push(`/duas/${data.cat_id}/${data.subcat_id}`);
+        setQueryStringInUrl(`cat=${data.cat_id}&subcat=${data.subcat_id}`);
 
         scrollToSection(data.subcat_id);
       }}

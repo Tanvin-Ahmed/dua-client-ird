@@ -1,7 +1,8 @@
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const useCatId = () => {
-  const { cat } = useParams();
+  const params = useSearchParams();
+  const cat = params.get("cat");
 
   return cat ? Number(cat) : null;
 };

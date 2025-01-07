@@ -5,6 +5,7 @@ import "./globals.css";
 import { cn } from "@/utils";
 import AppContext from "@/components/context/AppContext";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +39,9 @@ export default function RootLayout({
           "antialiased, bg-[#EBEEF2]"
         )}
       >
-        <AppContext>{children}</AppContext>
+        <AppContext>
+          <Suspense>{children}</Suspense>
+        </AppContext>
       </body>
     </html>
   );

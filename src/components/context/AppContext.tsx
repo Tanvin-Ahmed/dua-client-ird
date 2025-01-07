@@ -1,6 +1,6 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Dispatch,
   MutableRefObject,
@@ -38,7 +38,7 @@ export const appContext = createContext<AppContextValues>(defaultValues);
 
 const AppContext = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const { cat, sub_cat } = useParams();
+  const params = useSearchParams();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isCategoryOpen, setCategoryOpen] = useState(false);
@@ -55,9 +55,12 @@ const AppContext = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!isMounted || !firstRender) return;
 
-    router.push(`/duas/${cat ?? 1}/${sub_cat ?? 1}`);
+    const cat = params.get("cat");
+    const subCat = params.get("subcat");
+
+    router.push(`/duas?cat=${cat ?? 1}&subcat=${subCat ?? 1}`);
     setFirstRender(false);
-  }, [router, cat, sub_cat, isMounted, firstRender]);
+  }, [router, , isMounted, firstRender, params]);
 
   return (
     <appContext.Provider

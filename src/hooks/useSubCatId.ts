@@ -1,9 +1,10 @@
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const useSubCatId = () => {
-  const { sub_cat } = useParams();
+  const params = useSearchParams();
+  const subCat = params.get("subcat");
 
-  return sub_cat ? Number(sub_cat) : null;
+  return subCat ? Number(subCat) : null;
 };
 
 export default useSubCatId;
