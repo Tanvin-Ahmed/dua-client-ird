@@ -39,9 +39,9 @@ export default function RootLayout({
           "antialiased, bg-[#EBEEF2]"
         )}
       >
-        <AppContext>
-          <Suspense>{children}</Suspense>
-        </AppContext>
+        <Suspense>
+          <AppContext>{children}</AppContext>
+        </Suspense>
       </body>
     </html>
   );
